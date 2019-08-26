@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <record id="sale_order_approval_email_template" model="mail.template">
+          <field name="name">Sales manager  approval email</field>
+          <field name="email_from">${object.user_id.email }</field>
+          <field name="subject">Sale Order ${object.name} (Approval Waiting)</field>
+          <field name="email_to">${object.sale_department_manager_id.email}</field>
+         <!--  <field name="lang">${object.lang}</field> -->
+          <field name="model_id" ref="bi_sale_tripple_approval.model_sale_order"/>
+          <field name="auto_delete" eval="True"/>
+	  <field name="body_html">
+            <![CDATA[
+          
+	       
+          
+          
+             <p>Dear ${object.finance_manager_id.name},</p>
+          
+          <br/>
+	      <br/>
+        <p>Approve sale order ${object.name} </P>
+        <table>
+       <tr><th>${object.company_id.name}</th></tr>
+         <tr> <td>${object.company_id.street}</td></tr>
+        <tr>  <td>${object.company_id.street2}</td></tr>
+         <tr> <td>${object.company_id.city}</td></tr>
+          <tr><td>${object.company_id.state_id.name}</td><td>${object.company_id.zip}</td></tr>
+        <tr>  <td>${object.company_id.country_id.name}</td></tr>
+        <tr>  <td></td> </tr>
+         <tr> <td><p>Phone :</p>${object.company_id.phone}</td></tr>
+        <tr>  <td><p>Website :</p>${object.company_id.website}</td></tr>
+        </table>
+
+
+
+  ]]>
+	  </field>
+       </record>
+    <record id="sale_order_approval_email_template_finance" model="mail.template">
+          <field name="name">Sales finance manager  approval email</field>
+          <field name="email_from">${object.user_id.email }</field>
+          <field name="subject">Sale Order ${object.name} (Approval Waiting)</field>
+          <field name="email_to">${object.finance_manager_id.email}</field>
+         <!--  <field name="lang">${object.lang}</field> -->
+          <field name="model_id" ref="bi_sale_tripple_approval.model_sale_order"/>
+          <field name="auto_delete" eval="True"/>
+    <field name="body_html">
+            <![CDATA[
+          
+         
+          
+          
+             <p>Dear ${object.finance_manager_id.name},</p>
+          
+          <br/><br/>
+        
+        <p>Approve sale order ${object.name} </P>
+
+        <table>
+       <tr><th>${object.company_id.name}</th></tr>
+         <tr> <td>${object.company_id.street}</td></tr>
+        <tr>  <td>${object.company_id.street2}</td></tr>
+         <tr> <td>${object.company_id.city}</td></tr>
+          <tr><td>${object.company_id.state_id.name}</td><td>${object.company_id.zip}</td></tr>
+        <tr>  <td>${object.company_id.country_id.name}</td></tr>
+        <tr>  <td></td> </tr>
+         <tr> <td><p>Phone :</p>${object.company_id.phone}</td></tr>
+        <tr>  <td><p>Website :</p>${object.company_id.website}</td></tr>
+        </table>
+
+
+
+  ]]>
+    </field>
+       </record>
+    <record id="sale_order_approval_email_template_director" model="mail.template">
+          <field name="name">Sales Director approval email</field>
+          <field name="email_from">${object.user_id.email }</field>
+          <field name="subject">Sale Order ${object.name} (Approval Waiting)</field>
+          <field name="email_to">${object.sale_director_id.email}</field>
+         <!--  <field name="lang">${object.lang}</field> -->
+          <field name="model_id" ref="bi_sale_tripple_approval.model_sale_order"/>
+          <field name="auto_delete" eval="True"/>
+    <field name="body_html">
+            <![CDATA[
+          
+         
+          
+          
+             <p>Dear ${object.sale_director_id.name},</p>
+          
+          <br/><br/>
+        
+        <p>Approve sale order ${object.name} </P>
+
+
+        <table>
+       <tr><th>${object.company_id.name}</th></tr>
+         <tr> <td>${object.company_id.street}</td></tr>
+        <tr>  <td>${object.company_id.street2}</td></tr>
+         <tr> <td>${object.company_id.city}</td></tr>
+          <tr><td>${object.company_id.state_id.name}</td><td>${object.company_id.zip}</td></tr>
+        <tr>  <td>${object.company_id.country_id.name}</td></tr>
+        <tr>  <td></td> </tr>
+         <tr> <td><p>Phone :</p>${object.company_id.phone}</td></tr>
+        <tr>  <td><p>Website :</p>${object.company_id.website}</td></tr>
+        </table>
+
+
+
+  ]]>
+    </field>
+       </record>
+
+
+
+       <record id="sale_refused_email_template" model="mail.template">
+          <field name="name">Sales order refused email</field>
+          <field name="email_from">${object.refused_by_id.email }</field>
+          <field name="subject">Sale Order ${object.name} (Canceled)</field>
+          <field name="email_to">${object.sale_director_id.email}</field>
+          <field name="email_cc">${object.finance_manager_id.email},${object.sale_department_manager_id.email}</field>
+         <!--  <field name="lang">${object.lang}</field> -->
+          <field name="model_id" ref="bi_sale_tripple_approval.model_sale_order"/>
+          <field name="auto_delete" eval="True"/>
+    <field name="body_html">
+            <![CDATA[
+          
+         
+          
+          
+             
+          
+          <br/>
+        
+        <p> Sale order ${object.name} is canceled by ${object.refused_by_id.name} and the reason is : 
+          ${object.refuse_reason} </P>
+
+
+  ]]>
+    </field>
+       </record>
+    
+</odoo>

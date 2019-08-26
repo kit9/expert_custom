@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="before">
+                <button name="action_first_approve" states="approve" string=" Approve order" type="object"
+                        groups="sales_team.group_sale_manager"/>
+                <button name="action_second_approve" states="second_approve" string="Finance Approval" type="object"
+                        groups="bi_sale_tripple_approval.sale_finance_manager_limit"/>
+                <button name="action_third_approve" states="third_approve" string="Director Approval" type="object"
+                        groups="bi_sale_tripple_approval.sale_director_manager_limit"/>
+                <button name="action_refause" states="third_approve,approve,second_approve" string="Refuse"
+                        type="object"/>
+            </xpath>
+            <xpath expr="//page[2]" position="after">
+                <page string="Approve Details">
+                    <group>
+                        <group string="Approve Department">
+                            <field name="sale_department_manager_id"/>
+                            <field name="finance_manager_id"/>
+                            <field name="sale_director_id"/>
+                        </group>
+                        <group string="Approve Dates">
+                            <field name="sale_manager_approval_date"/>
+                            <field name="finance_manager_id_approval_date"/>
+                            <field name="sale_director_id_approval_date"/>
+                        </group>
+                        <group string="Refuse">
+                            <field name="refused_by_id"/>
+                            <field name="refause_date"/>
+                            <field name="refuse_reason"/>
+                            <field name="sale_manager" invisible="1"/>
+                            <field name="finance_manager" invisible="1"/>
+                            <field name="sale_director" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+    <record id="action_sale_manager" model="ir.actions.act_window">
+        <field name="name">Sales Manager Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('state','in',['draft','sent','approve','sale','done','cancel'])]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"></p>
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem action="action_sale_manager" id="menu_sale_order_manager" parent="sale.sale_order_menu"
+              name="Sales Manager Orders" sequence="100" groups="sales_team.group_sale_manager"/>
+    />
+
+    <record id="action_sale_finance" model="ir.actions.act_window">
+        <field name="name">Finanace Manager Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('state','in',['second_approve','cancel'])]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"></p>
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem action="action_sale_finance" id="menu_sale_order_finance" parent="sale.sale_order_menu"
+              name="Sales Finance Manager Orders" sequence="101" groups="bi_sale_tripple_approval.sale_finance_manager_limit"/>
+
+    <record id="action_sale_director" model="ir.actions.act_window">
+        <field name="name">Sales Director Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('state','in',['third_approve','cancel'])]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create"></p>
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem action="action_sale_director" id="menu_sale_order_director" parent="sale.sale_order_menu"
+              name="Sales Director Orders" sequence="102" groups="bi_sale_tripple_approval.sale_director_manager_limit"/>
+</odoo>

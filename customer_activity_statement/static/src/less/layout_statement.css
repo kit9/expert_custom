@@ -1,0 +1,19 @@
+.table-statement .amount {
+  text-align: right !important;
+  width: 14%;
+}
+.table-statement thead {
+  border-bottom: solid;
+}
+.table-statement thead tr th:first-child {
+  width: auto !important;
+}
+.table-statement thead tr th:last-child {
+  width: 16% !important;
+}
+.statement-blocked {
+  background-color: #d9d7d7 !important;
+}
+.statement-blocked td:last-child {
+  background-color: #d9d7d7 !important;
+}

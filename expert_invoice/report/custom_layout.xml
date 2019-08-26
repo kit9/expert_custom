@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="custom_header_footer_layout">
+            <div class="header">
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer">
+                    <div class="row">
+                        <div class="col-xs-5 pull-left">
+                            <br/>
+                            <br/>
+                            <p>Bank Details</p>
+                            <p>Bank Name: Alinma Bank</p>
+                            <p>Beneficiary Name: Health Experts Trading Est</p>
+                            <p>IBAN No : SA4405000068201383721000</p>
+                            <p>Account No : 68201383721000</p>
+                        </div>
+                        <div class="col-xs-7 pull-right">
+                            <table class="table">
+                                <tr style="border-top: 1px solid #FFFFFF; height:2px;">
+                                    <td class="text-left"
+                                        style="border: none;  border-left:1px solid #FFFFFF;">
+                                        <p style="padding:0px; margin:0px;">Goods Recived in good conditon</p>
+                                        <p style="padding:0px; margin:0px;">kindly sign and stamp</p>
+                                    </td>
+
+                                    <td class="text-right"
+                                        style="background-color:#FFFFFF; border: none; border-right:1px solid #FFFFFF;">
+                                        <p style="padding:0px; margin:0px;">استلمت البضاعه بحاله جيده</p>
+                                        <p style="padding:0px; margin:0px;">الرجاء التوقيع والختم</p>
+                                    </td>
+                                </tr>
+                                <tr style="border-top: 1px solid #000000; height:2px;">
+                                    <td class="text-left" style="border: none;">
+                                        <p style="padding:0px; margin:0px;">Received By:</p>
+                                    </td>
+                                    <td class="text-right" style="background-color:#FFFFFF; border: none;">
+                                        <p style="padding:0px; margin:0px;">:المستلم</p>
+                                    </td>
+
+                                </tr>
+                                <tr style="border-top: 1px solid #000000; height:2px;">
+                                    <td class="text-left" style="border: none;">
+                                        <p style="padding:0px; margin:0px;">Signature:</p>
+                                    </td>
+                                    <td class="text-right" style="background-color:#FFFFFF; border: none;">
+                                        <p style="padding:0px; margin:0px;">:التوقيع</p>
+                                    </td>
+                                </tr>
+                                <tr style="border-top: 1px solid #000000; height:2px;">
+                                    <td class="text-left" style="border: none;">
+                                        <p style="padding:0px; margin:0px;">Date:</p>
+                                    </td>
+                                    <td class="text-right" style="background-color:#FFFFFF; border: none;">
+                                        <p style="padding:0px; margin:0px;">:التاريخ</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p class="text-center" style="direction:rtl;">
+                                <h7>لا يعتمد سداد الفاتورة الا بسند رسمى من (مؤسسه الخبراء الصحيون
+                                    للتجاره)
+                                </h7>
+                            </p>
+                        </div>
+                    </div>
+            </div>
+        </template>
+
+        <template id="custom_external_layout">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-if="company.external_report_layout == 'background'">
+                <t t-call="expert_invoice.custom_header_footer_layout">
+                    <t t-raw="0"/>
+                </t>
+            </t>
+            <t t-if="company.external_report_layout == 'boxed'">
+                <t t-call="expert_invoice.custom_header_footer_layout">
+                    <t t-raw="0"/>
+                </t>
+            </t>
+            <t t-if="company.external_report_layout == 'clean'">
+                <t t-call="expert_invoice.custom_header_footer_layout">
+                    <t t-raw="0"/>
+                </t>
+            </t>
+            <t t-if="company.external_report_layout in (False, 'standard')">
+                <t t-call="expert_invoice.custom_header_footer_layout">
+                    <t t-raw="0"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</openerp>

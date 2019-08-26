@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo >
+	
+	<record id="sale_finance_manager_limit" model="res.groups">
+		<field name="name">Finance manager(sale) 1</field>
+		<field name="category_id" ref="base.module_category_usability"/>
+		<field name="implied_ids" eval="[(4,ref('sales_team.group_sale_manager'))]"/>
+		
+	</record>
+	<record id="sale_director_manager_limit" model="res.groups">
+		<field name="name">Director(sale) 2 </field>
+		<field name="category_id" ref="base.module_category_usability"/>
+		<field name="implied_ids" eval="[(4,ref('bi_sale_tripple_approval.sale_finance_manager_limit'))]"/>
+		
+	</record>
+
+</odoo>
